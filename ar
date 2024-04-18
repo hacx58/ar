@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiencia de Realidad Aumentada</title>
+  <!-- Incluye AR.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@jeromeetienne/ar.js"></script>
+  <!-- Incluye Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-X"></script>
+  <script>
+    // Configuración de Google Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXX-X');
+  </script>
+  <!-- Incluye html2canvas para captura de pantalla -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <!-- Escena de AR.js -->
+  <a-scene embedded arjs>
+    <!-- Objeto AR -->
+    <a-box position="0 0.5 0" material="color: red;"></a-box>
+
+    <!-- Configuración de seguimiento de eventos para Google Analytics -->
+    <script>
+      document.querySelector('a-box').addEventListener('click', function() {
+        // Registra el evento en Google Analytics
+        gtag('event', 'interaction', {
+          'event_category': 'AR',
+          'event_label': 'Objeto AR clickeado'
+        });
+      });
+    </script>
+  </a-scene>
+
+  <!-- Botón para capturar pantalla y compartir en redes sociales -->
+  <button onclick="captureAndShare()">Compartir en redes sociales</button>
+
+  <!-- Script para capturar pantalla y compartir en redes sociales -->
+  <script>
+    function captureAndShare() {
+      // Captura de pantalla con html2canvas
+      html2canvas(document.querySelector('a-scene')).then(canvas => {
+        // Crea una URL de la imagen capturada
+        const imgUrl = canvas.toDataURL('image/png');
+
+        // Simula la compartición en redes sociales (deberías implementar la lógica real aquí)
+        console.log('Compartiendo imagen en redes sociales:', imgUrl);
+      });
+    }
+  </script>
+</body>
+</html>
